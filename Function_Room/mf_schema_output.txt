@@ -1,0 +1,727 @@
+SQL> 
+SQL> DROP TABLE booking CASCADE CONSTRAINTS;
+
+Table BOOKING dropped.
+
+SQL> 
+SQL> DROP TABLE chef CASCADE CONSTRAINTS;
+
+Table CHEF dropped.
+
+SQL> 
+SQL> DROP TABLE chef_arrangement CASCADE CONSTRAINTS;
+
+Table CHEF_ARRANGEMENT dropped.
+
+SQL> 
+SQL> DROP TABLE cuisine CASCADE CONSTRAINTS;
+
+Table CUISINE dropped.
+
+SQL> 
+SQL> DROP TABLE customer CASCADE CONSTRAINTS;
+
+Table CUSTOMER dropped.
+
+SQL> 
+SQL> DROP TABLE function_room CASCADE CONSTRAINTS;
+
+Table FUNCTION_ROOM dropped.
+
+SQL> 
+SQL> DROP TABLE maintenance CASCADE CONSTRAINTS;
+
+Table MAINTENANCE dropped.
+
+SQL> 
+SQL> DROP TABLE payment CASCADE CONSTRAINTS;
+
+Table PAYMENT dropped.
+
+SQL> 
+SQL> DROP TABLE rate_history CASCADE CONSTRAINTS;
+
+Table RATE_HISTORY dropped.
+
+SQL> 
+SQL> DROP TABLE room_evaluation CASCADE CONSTRAINTS;
+
+Table ROOM_EVALUATION dropped.
+
+SQL> 
+SQL> DROP TABLE specialization CASCADE CONSTRAINTS;
+
+Table SPECIALIZATION dropped.
+
+SQL> 
+SQL> -- predefined type, no DDL - MDSYS.SDO_GEOMETRY
+SQL> 
+SQL> -- predefined type, no DDL - XMLTYPE
+SQL> 
+SQL> CREATE TABLE booking (
+  2      book_id       NUMBER(7) NOT NULL,
+  3      cust_id       NUMBER(7) NOT NULL,
+  4      book_start    DATE NOT NULL,
+  5      book_end      DATE NOT NULL,
+  6      book_guestnum NUMBER(3) NOT NULL,
+  7      book_baserate NUMBER(4, 2) NOT NULL,
+  8      book_total    NUMBER(6, 2) NOT NULL,
+  9      book_deco     CHAR(3),
+ 10      cuis_type     CHAR(3),
+ 11      room_id       NUMBER(7)
+ 12  );
+
+Table BOOKING created.
+
+SQL> 
+SQL> ALTER TABLE booking
+  2      ADD CHECK ( book_deco IN ( 'ALL', 'BDY', 'KID', 'OUT', 'WED' ) );
+
+Table BOOKING altered.
+
+SQL> 
+SQL> ALTER TABLE booking
+  2      ADD CHECK ( cuis_type IN ( 'CHN', 'IND', 'JAP', 'WES' ) );
+
+Table BOOKING altered.
+
+SQL> 
+SQL> COMMENT ON COLUMN booking.book_id IS
+  2      'Booking ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN booking.cust_id IS
+  2      'Customer ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN booking.book_start IS
+  2      'Function start date and time for customer booking';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN booking.book_end IS
+  2      'Function end date and time for customer booking';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN booking.book_guestnum IS
+  2      'Number of guests in the function for customer booking';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN booking.book_baserate IS
+  2      'Base rate per customer for the function';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN booking.book_total IS
+  2      'Total cost for customer booking';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN booking.book_deco IS
+  2      'Decoration theme for the function';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN booking.cuis_type IS
+  2      'Cuisine type';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN booking.room_id IS
+  2      'Room ID';
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE booking ADD CONSTRAINT booking_pk PRIMARY KEY ( book_id );
+
+Table BOOKING altered.
+
+SQL> 
+SQL> ALTER TABLE booking ADD CONSTRAINT booking_natural_key UNIQUE ( book_start,
+  2                                                                  cust_id );
+
+Table BOOKING altered.
+
+SQL> 
+SQL> CREATE TABLE chef (
+  2      chef_id      NUMBER(7) NOT NULL,
+  3      chef_fname   VARCHAR2(50) NOT NULL,
+  4      chef_lname   VARCHAR2(50) NOT NULL,
+  5      chef_contact CHAR(10) NOT NULL,
+  6      chef_hourly  NUMBER(2, 2) NOT NULL
+  7  );
+
+Table CHEF created.
+
+SQL> 
+SQL> COMMENT ON COLUMN chef.chef_id IS
+  2      'Chef ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN chef.chef_fname IS
+  2      'Chef first name';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN chef.chef_lname IS
+  2      'Chef last name';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN chef.chef_contact IS
+  2      'Chef''s phone number';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN chef.chef_hourly IS
+  2      'Chef''s hourly rate';
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE chef ADD CONSTRAINT chef_pk PRIMARY KEY ( chef_id );
+
+Table CHEF altered.
+
+SQL> 
+SQL> CREATE TABLE chef_arrangement (
+  2      book_id NUMBER(7) NOT NULL,
+  3      chef_id NUMBER(7) NOT NULL
+  4  );
+
+Table CHEF_ARRANGEMENT created.
+
+SQL> 
+SQL> COMMENT ON COLUMN chef_arrangement.book_id IS
+  2      'Booking ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN chef_arrangement.chef_id IS
+  2      'Chef ID';
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE chef_arrangement ADD CONSTRAINT chef_arrangement_pk PRIMARY KEY ( chef_id
+  2  ,
+  3                                                                                book_id
+  4                                                                                );
+
+Table CHEF_ARRANGEMENT altered.
+
+SQL> 
+SQL> CREATE TABLE cuisine (
+  2      cuis_type CHAR(3) NOT NULL,
+  3      cuis_rate NUMBER(3) NOT NULL
+  4  );
+
+Table CUISINE created.
+
+SQL> 
+SQL> ALTER TABLE cuisine
+  2      ADD CHECK ( cuis_type IN ( 'CHN', 'IND', 'JAP', 'WES' ) );
+
+Table CUISINE altered.
+
+SQL> 
+SQL> COMMENT ON COLUMN cuisine.cuis_type IS
+  2      'Cuisine type';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN cuisine.cuis_rate IS
+  2      'Cuisine rate per customer';
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE cuisine ADD CONSTRAINT cuisine_pk PRIMARY KEY ( cuis_type );
+
+Table CUISINE altered.
+
+SQL> 
+SQL> CREATE TABLE customer (
+  2      cust_id      NUMBER(7) NOT NULL,
+  3      cust_ftname  VARCHAR2(50) NOT NULL,
+  4      cust_lname   VARCHAR2(50) NOT NULL,
+  5      cust_busname VARCHAR2(100),
+  6      cust_street  VARCHAR2(100) NOT NULL,
+  7      cust_suburb  VARCHAR2(100) NOT NULL,
+  8      cust_contact VARCHAR2(10) NOT NULL
+  9  );
+
+Table CUSTOMER created.
+
+SQL> 
+SQL> COMMENT ON COLUMN customer.cust_id IS
+  2      'Customer ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN customer.cust_ftname IS
+  2      'Customer first name';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN customer.cust_lname IS
+  2      'Customer last name';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN customer.cust_busname IS
+  2      'Customer business name';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN customer.cust_street IS
+  2      'Customer''s street';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN customer.cust_suburb IS
+  2      'Customer''s address (Suburb)';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN customer.cust_contact IS
+  2      'Customer contact number';
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE customer ADD CONSTRAINT customer_pk PRIMARY KEY ( cust_id );
+
+Table CUSTOMER altered.
+
+SQL> 
+SQL> CREATE TABLE function_room (
+  2      room_id     NUMBER(7) NOT NULL,
+  3      room_street VARCHAR2(100) NOT NULL,
+  4      room_suburb VARCHAR2(100) NOT NULL,
+  5      room_cap    NUMBER(4) NOT NULL,
+  6      room_rate   NUMBER(4) NOT NULL,
+  7      room_park   CHAR(1) NOT NULL
+  8  );
+
+Table FUNCTION_ROOM created.
+
+SQL> 
+SQL> ALTER TABLE function_room
+  2      ADD CHECK ( room_park IN ( 'N', 'Y' ) );
+
+Table FUNCTION_ROOM altered.
+
+SQL> 
+SQL> COMMENT ON COLUMN function_room.room_id IS
+  2      'Room ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN function_room.room_street IS
+  2      'Function room''s street address';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN function_room.room_suburb IS
+  2      'Function room''s suburb';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN function_room.room_cap IS
+  2      'Room capacity for maximum guest numbers';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN function_room.room_rate IS
+  2      'Function room''s hourly rate';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN function_room.room_park IS
+  2      'Whether the function room has on-site parking';
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE function_room ADD CONSTRAINT function_room_pk PRIMARY KEY ( room_id );
+
+Table FUNCTION_ROOM altered.
+
+SQL> 
+SQL> CREATE TABLE maintenance (
+  2      maint_id       NUMBER(7) NOT NULL,
+  3      room_id        NUMBER(7) NOT NULL,
+  4      maint_datetime DATE NOT NULL,
+  5      re_id          NUMBER(7) NOT NULL
+  6  );
+
+Table MAINTENANCE created.
+
+SQL> 
+SQL> COMMENT ON COLUMN maintenance.maint_id IS
+  2      'Maintenance ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN maintenance.room_id IS
+  2      'Room ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN maintenance.maint_datetime IS
+  2      'Maintenance date and time';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN maintenance.re_id IS
+  2      'Evaluation ID';
+
+Comment created.
+
+SQL> 
+SQL> CREATE UNIQUE INDEX maintenance__idx ON
+  2      maintenance (
+  3          re_id
+  4      ASC );
+
+INDEX MAINTENANCE__IDX created.
+
+SQL> 
+SQL> ALTER TABLE maintenance ADD CONSTRAINT maintenance_pk PRIMARY KEY ( maint_id );
+
+Table MAINTENANCE altered.
+
+SQL> 
+SQL> ALTER TABLE maintenance ADD CONSTRAINT maintenance_natural_key UNIQUE ( room_id,
+  2                                                                          maint_datetime
+  3                                                                          );
+
+Table MAINTENANCE altered.
+
+SQL> 
+SQL> CREATE TABLE payment (
+  2      pay_no     NUMBER(10) NOT NULL,
+  3      cust_id    NUMBER(7) NOT NULL,
+  4      book_id    NUMBER(7) NOT NULL,
+  5      pay_date   DATE NOT NULL,
+  6      pay_amount NUMBER(6, 2) NOT NULL
+  7  );
+
+Table PAYMENT created.
+
+SQL> 
+SQL> COMMENT ON COLUMN payment.pay_no IS
+  2      'Payment number';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN payment.cust_id IS
+  2      'Customer ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN payment.book_id IS
+  2      'Booking ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN payment.pay_date IS
+  2      'Payment date';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN payment.pay_amount IS
+  2      'Payment amount';
+
+Comment created.
+
+SQL> 
+SQL> CREATE UNIQUE INDEX payment__idx ON
+  2      payment (
+  3          book_id
+  4      ASC );
+
+INDEX PAYMENT__IDX created.
+
+SQL> 
+SQL> ALTER TABLE payment ADD CONSTRAINT payment_pk PRIMARY KEY ( pay_no );
+
+Table PAYMENT altered.
+
+SQL> 
+SQL> ALTER TABLE payment ADD CONSTRAINT payment_natural_key UNIQUE ( cust_id,
+  2                                                                  book_id );
+
+Table PAYMENT altered.
+
+SQL> 
+SQL> CREATE TABLE rate_history (
+  2      room_id    NUMBER(7) NOT NULL,
+  3      rh_recrate NUMBER(4) NOT NULL,
+  4      rh_recdate DATE NOT NULL
+  5  );
+
+Table RATE_HISTORY created.
+
+SQL> 
+SQL> COMMENT ON COLUMN rate_history.room_id IS
+  2      'Room ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN rate_history.rh_recrate IS
+  2      'Recorded hourly rate for function room';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN rate_history.rh_recdate IS
+  2      'The date when room rate is recorded';
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE rate_history ADD CONSTRAINT rate_history_pk PRIMARY KEY ( room_id );
+
+Table RATE_HISTORY altered.
+
+SQL> 
+SQL> CREATE TABLE room_evaluation (
+  2      re_id   NUMBER(7) NOT NULL,
+  3      room_id NUMBER(7) NOT NULL,
+  4      re_chk  DATE NOT NULL,
+  5      chef_id NUMBER(7) NOT NULL,
+  6      re_apr  CHAR(1) NOT NULL,
+  7      re_cmt  VARCHAR2(200)
+  8  );
+
+Table ROOM_EVALUATION created.
+
+SQL> 
+SQL> ALTER TABLE room_evaluation
+  2      ADD CHECK ( re_apr IN ( 'N', 'Y' ) );
+
+Table ROOM_EVALUATION altered.
+
+SQL> 
+SQL> COMMENT ON COLUMN room_evaluation.re_id IS
+  2      'Evaluation ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN room_evaluation.room_id IS
+  2      'Room ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN room_evaluation.re_chk IS
+  2      'Date of the function room checked';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN room_evaluation.chef_id IS
+  2      'Chef ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN room_evaluation.re_apr IS
+  2      'Whether the room is approved for use';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN room_evaluation.re_cmt IS
+  2      'Comments on the function room appliances';
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE room_evaluation ADD CONSTRAINT evaluation_pk PRIMARY KEY ( re_id );
+
+Table ROOM_EVALUATION altered.
+
+SQL> 
+SQL> ALTER TABLE room_evaluation ADD CONSTRAINT evaluation_natural_key UNIQUE ( re_chk,
+  2                                                                             room_id );
+
+Table ROOM_EVALUATION altered.
+
+SQL> 
+SQL> CREATE TABLE specialization (
+  2      chef_id   NUMBER(7) NOT NULL,
+  3      cuis_type CHAR(3) NOT NULL,
+  4      spec_acq  DATE
+  5  );
+
+Table SPECIALIZATION created.
+
+SQL> 
+SQL> COMMENT ON COLUMN specialization.chef_id IS
+  2      'Chef ID';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN specialization.cuis_type IS
+  2      'Cuisine type';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN specialization.spec_acq IS
+  2      'The date when the chef acquire the specialization';
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE specialization ADD CONSTRAINT specialization_pk PRIMARY KEY ( chef_id,
+  2                                                                            cuis_type )
+  3                                                                            ;
+
+Table SPECIALIZATION altered.
+
+SQL> 
+SQL> ALTER TABLE chef_arrangement
+  2      ADD CONSTRAINT booking_chef_arrange FOREIGN KEY ( book_id )
+  3          REFERENCES booking ( book_id );
+
+Table CHEF_ARRANGEMENT altered.
+
+SQL> 
+SQL> ALTER TABLE booking
+  2      ADD CONSTRAINT booking_functionroom FOREIGN KEY ( room_id )
+  3          REFERENCES function_room ( room_id );
+
+Table BOOKING altered.
+
+SQL> 
+SQL> ALTER TABLE payment
+  2      ADD CONSTRAINT booking_payment FOREIGN KEY ( book_id )
+  3          REFERENCES booking ( book_id );
+
+Table PAYMENT altered.
+
+SQL> 
+SQL> ALTER TABLE chef_arrangement
+  2      ADD CONSTRAINT chef_chefarrangement FOREIGN KEY ( chef_id )
+  3          REFERENCES chef ( chef_id );
+
+Table CHEF_ARRANGEMENT altered.
+
+SQL> 
+SQL> ALTER TABLE room_evaluation
+  2      ADD CONSTRAINT chef_roomeval FOREIGN KEY ( chef_id )
+  3          REFERENCES chef ( chef_id );
+
+Table ROOM_EVALUATION altered.
+
+SQL> 
+SQL> ALTER TABLE specialization
+  2      ADD CONSTRAINT chef_spec FOREIGN KEY ( chef_id )
+  3          REFERENCES chef ( chef_id );
+
+Table SPECIALIZATION altered.
+
+SQL> 
+SQL> ALTER TABLE booking
+  2      ADD CONSTRAINT cuisine_booking FOREIGN KEY ( cuis_type )
+  3          REFERENCES cuisine ( cuis_type );
+
+Table BOOKING altered.
+
+SQL> 
+SQL> ALTER TABLE specialization
+  2      ADD CONSTRAINT cuisine_spec FOREIGN KEY ( cuis_type )
+  3          REFERENCES cuisine ( cuis_type );
+
+Table SPECIALIZATION altered.
+
+SQL> 
+SQL> ALTER TABLE booking
+  2      ADD CONSTRAINT customer_booking FOREIGN KEY ( cust_id )
+  3          REFERENCES customer ( cust_id );
+
+Table BOOKING altered.
+
+SQL> 
+SQL> ALTER TABLE payment
+  2      ADD CONSTRAINT customer_payment FOREIGN KEY ( cust_id )
+  3          REFERENCES customer ( cust_id );
+
+Table PAYMENT altered.
+
+SQL> 
+SQL> ALTER TABLE room_evaluation
+  2      ADD CONSTRAINT froom_evaluation FOREIGN KEY ( room_id )
+  3          REFERENCES function_room ( room_id );
+
+Table ROOM_EVALUATION altered.
+
+SQL> 
+SQL> ALTER TABLE maintenance
+  2      ADD CONSTRAINT froom_maintenance FOREIGN KEY ( room_id )
+  3          REFERENCES function_room ( room_id );
+
+Table MAINTENANCE altered.
+
+SQL> 
+SQL> ALTER TABLE rate_history
+  2      ADD CONSTRAINT room_rate_history FOREIGN KEY ( room_id )
+  3          REFERENCES function_room ( room_id );
+
+Table RATE_HISTORY altered.
+
+SQL> 
+SQL> ALTER TABLE maintenance
+  2      ADD CONSTRAINT roomeval_maintenance FOREIGN KEY ( re_id )
+  3          REFERENCES room_evaluation ( re_id );
+
+Table MAINTENANCE altered.
+
+SQL> 
+SQL> SPOOL OFF
