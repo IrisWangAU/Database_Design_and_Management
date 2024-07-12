@@ -91,7 +91,33 @@ Relationships between these entities will be established through foreign key con
   3. Change Dr. Decca BLANKHORN's specialization from "Thoracic surgery" to "Vascular surgery".
   4. Remove the "Medical genetics" specialization from the database without altering the schema.
 
+<br>
 
+<a name="db-queries"></a>
+### Common SQL queries
+Execute a series of SQL queries to extract and manipulate data from the Monash Hospital database.
+- List doctors specializing in "ORTHOPEDIC SURGERY".
+- List items with stock > 50 and description containing 'disposable'.
+- List patient admissions on June 1, 2022, include patient and doctor names.
+- List procedures with standard cost less than average.
+- List patients with more than 2 admissions.
+- List admissions with length of stay longer than average.
+- List procedure price differentials.
+- List items used for each procedure and maximum quantity.
+
+<br>
+
+<a name="#db-mod"></a>
+### Design Modifications
+Modify the database design to accommodate new requirements.
+- Add a column to track the number of patients supervised by each doctor, starting from zero.
+- Initialize the column based on current admissions data.
+- Add a daily bed charge to admissions with a default value of $321.
+- Create an invoice system for completed admissions, including:
+  - Invoice number (starting at 100).
+  - Total admission procedure costs.
+  - Total bed costs (full day rate for part days).
+  - Payment status indicator (Yes/No).
 
 
 
