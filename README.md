@@ -15,7 +15,7 @@
 
 ## 📝 Table of Contents
 1. [Introduction](#introduction)
-2. [Database Creation](#db-create)  
+2. [Database Design and Schema Creation](#db-create)  
   2.1. [Logical Model](#logical-model)  
   2.2. [Schema transform for SSMS](#ssms-schema)  
   2.3. [Database Creation in SSMS](#ssms-db)  
@@ -28,13 +28,24 @@
 
 
 <a name="introduction"></a>
-## 🔬 Project Overview 
+## Project Introduction
 
-Walmart is the biggest retail store in the United States. Just like others, they have been expanding their e-commerce part of the business. By the end of 2022, e-commerce represented a roaring $80 billion in sales, which is 13% of total sales of Walmart. One of the main factors that affects their sales is public holidays, like the Super Bowl, Labour Day, Thanksgiving, and Christmas. 
+This project is designed to develop a comprehensive and efficient database system to manage the diverse and extensive data needs of Monash Hospital. The primary goal is to create a robust database infrastructure that facilitates the storage, retrieval, and management of crucial hospital data, including patient information, medical procedures, doctor specializations, cost centers, and medical items. The conceptual and logical models are built using Oracle SQL Developer, and the corresponding schema is tranformed to be used by Microsoft SQL Management Studio for Database Creation and further Database Management.
 
-In this project, I build a ETL data pipeline for the analysis of supply and demand around the holidays, along with conducting a preliminary analysis of the data.
+By implementing this database, Monash Hospital aims to enhance its data management capabilities, streamline operations, improve data accessibility, and ensure data integrity and security.
 
 <br>
+
+<a name="db-create"></a>
+## Database Design and Schema Creation
+
+<a name="db-create"></a>
+### Logical Model
+- Defining the database schema, including tables, columns, data types, and constraints to accurately represent the hospital's data requirements using the following logical model:
+
+![logical_model]()
+
+
 
 
 
