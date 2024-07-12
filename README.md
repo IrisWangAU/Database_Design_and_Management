@@ -120,10 +120,20 @@ Modify the database design to accommodate new requirements.
   - Payment status indicator (Yes/No).
 
 
+<br>
 
+<a name="technology"></a>
+## 🛠️ Technology Used
+- Conceptual and Logical Model: Orcale SQL developer
+- Database Creation: Microsoft SQL Server and Microsoft SQL Management Studio (SSMS)
+- Database Management: SSMS
 
+<br>
 
+<a name="contact"></a>
+##📨 Contact Me
 
-
+[LinkedIn](https://www.linkedin.com/in/iriswangau/) •
+[Gmail](iriswang.mel@gmail.com)
 
 
