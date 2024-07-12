@@ -9,7 +9,7 @@
     </ul>
   </div>
   
-  <p>Create Database from scratch using Oracle SQL Developer and then manage with Microsoft SQL Manangement Studio</p>
+  <p>Create Database from scratch using Oracle SQL Developer and then manage with Microsoft SQL Manangement Studio (SSMS)</p>
 </div>
 <br>
 
@@ -17,14 +17,13 @@
 1. [Introduction](#introduction)
 2. [Database Design and Schema Creation](#db-create)  
   2.1. [Logical Model](#logical-model)  
-  2.2. [Schema transform for SSMS](#ssms-schema)  
-  2.3. [Database Creation in SSMS](#ssms-db)  
-3. [Database Management](#db-manage)
+  2.2. [Database Creation in SSMS](#ssms-db)  
+4. [Database Management](#db-manage)
   3.1. 
   3.2.  
   3.3.  
-4. [Technology used](#technology)
-5. [Contact](#contact)
+5. [Technology used](#technology)
+6. [Contact](#contact)
 
 
 <a name="introduction"></a>
@@ -45,6 +44,20 @@ By implementing this database, Monash Hospital aims to enhance its data manageme
 
 ![logical_model]()
 
+<br>
+
+<a name="ssms-db"></a>
+### Database Creation in SSMS
+- Creating tables for various entities such as patients, doctors, medical procedures, cost centers, and medical items.
+- Establishing relationships and constraints between tables to ensure data integrity and enforce business rules.
+- Populating the database with initial sample data to validate the schema and demonstrate the system's capabilities.
+- Providing comprehensive documentation, including the database schema, data dictionary, and user guides to support database management and usage.
+
+> The following snaps are samples. Please refer to SQL files in Hospital directory for complete script.
+
+![createT]()
+![Relationships]()
+![datainsert]()
 
 
 
