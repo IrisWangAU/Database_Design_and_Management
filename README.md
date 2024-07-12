@@ -1,8 +1,5 @@
 <div align="center">
-  <a href="#">
-    <img src="">
-  </a>
-
+  
   <div id="user-content-toc">
     <ul>
       <summary><h1 style="display: inline-block;"> Database Creation and Management for a Hospital</h1></summary>
@@ -10,6 +7,12 @@
   </div>
   
   <p>Create Database from scratch using Oracle SQL Developer and then manage with Microsoft SQL Manangement Studio (SSMS)</p>
+
+  <a href="#">
+    <img src="https://github.com/IrisWangAU/Database_SQL/blob/main/Hospital/assets/LogicalModel.PNG">
+  </a>
+
+  
 </div>
 <br>
 
@@ -58,7 +61,7 @@ Relationships between these entities will be established through foreign key con
 ### Logical Model
 - Defining the database schema, including tables, columns, data types, and constraints to accurately represent the hospital's data requirements using the following logical model:
 
-![logical_model]()
+![logical_model](https://github.com/IrisWangAU/Database_SQL/blob/main/Hospital/assets/LogicalModel.PNG)
 
 <br>
 
@@ -71,9 +74,9 @@ Relationships between these entities will be established through foreign key con
 
 > The following snaps are samples. Please refer to SQL files in Hospital directory for complete script.
 
-![createT]()
-![Relationships]()
-![datainsert]()
+![createT](https://github.com/IrisWangAU/Database_SQL/blob/main/Hospital/assets/createT.PNG)
+![Relationships](https://github.com/IrisWangAU/Database_SQL/blob/main/Hospital/assets/relationship.PNG)
+![datainsert](https://github.com/IrisWangAU/Database_SQL/blob/main/Hospital/assets/datainsert.PNG)
 
 <br>
 
