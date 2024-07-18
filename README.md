@@ -134,7 +134,8 @@ Modify the database design to accommodate new requirements.
 <br>
 
 <a name="contact"></a>
-##📨 Contact Me
+
+## 📨 Contact Me
 
 [LinkedIn](https://www.linkedin.com/in/iriswangau/) •
 [Gmail](iriswang.mel@gmail.com)
