@@ -2,7 +2,7 @@
   
   <div id="user-content-toc">
     <ul>
-      <summary><h1 style="display: inline-block;"> Database Creation and Management for a Hospital</h1></summary>
+      <summary><h1 style="display: inline-block;"> Database Creation and Management</h1></summary>
     </ul>
   </div>
   
